@@ -2,7 +2,9 @@
 
 class Game {
     constructor(create, draw){               // it would also work without constructor
+        this.time = 0;
         this.player = null;
+        this.obstacles= [];
         this.create = create;
         this.draw = draw;
     }
@@ -17,16 +19,33 @@ class Game {
         this.obstacle.domElement = this.create("obstacle");
         this.draw(this.obstacle);
 
+
+
         setInterval(() => {
 
-            console.log("move obstacle");
-             // move obstacle
-            this.obstacle.moveDown();
-            this.draw(this.obstacle); 
-        }, 3000);
+            // move obstacles
+            this.obstacles.forEach((obstacle) => {
+            obstacle.moveDown();
+            this.draw(obstacle)
+            })
+
+            
+            // create and draw obstacles
+            if(this.time % 30 === 0){         
+            const newObstacle = new Obstacle();
+            this.obstacles.push(newObstacle);
+            newObstacle.domElement = this.create("obstacle")
+            
+            //this.draw(this.obstacle);
+        
+        }
+        this.time++
+
+        }, 50);
 
 
-       
+
+     
    
     }
 
