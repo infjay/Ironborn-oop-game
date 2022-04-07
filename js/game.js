@@ -7,9 +7,27 @@ class Game {
         this.draw = draw;
     }
     start(){
+        // create and draw Player
         this.player = new Player();
         this.player.domElement = this.create("player"); //create a dom element
         this.draw(this.player);
+        
+        // create and draw Obstacle
+        this.obstacle = new Obstacle();
+        this.obstacle.domElement = this.create("obstacle");
+        this.draw(this.obstacle);
+
+        setInterval(() => {
+
+            console.log("move obstacle");
+             // move obstacle
+            this.obstacle.moveDown();
+            this.draw(this.obstacle); 
+        }, 3000);
+
+
+       
+   
     }
 
     movePlayer(direction){
@@ -22,8 +40,16 @@ class Game {
 }
 
 
-
-
+class Obstacle {
+    constructor(){
+        this.positionX = 50;
+        this.positionY = 100;
+        this.domElement = null;
+}
+    moveDown(){
+            this.positionY--;   
+    }
+}
 
 
 class Player {
